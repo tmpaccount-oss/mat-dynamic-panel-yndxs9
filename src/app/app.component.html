@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  <button
+    (click)="sidenav.toggle()"
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+  >
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <button
+    mat-button
+    [routerLink]="['/comp-a']"
+    (click)="openRightPanel(tempRef1)"
+  >
+    Button A
+  </button>
+  <button
+    mat-button
+    [routerLink]="['/comp-b']"
+    (click)="openRightPanel(tempRef2)"
+  >
+    Button B
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="panel" mode="side">
+    <mat-toolbar> Area di ricerca </mat-toolbar>
+    <ng-template
+      [cdkPortalOutlet]="sidenavService.panelPortal | async"
+    ></ng-template>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section id="global-actions">
+      <h3>Routing module:</h3>
+    </section>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #tempRef1>
+  <p>Hello, first template!</p>
+  <button mat-button color="primary" (click)="sidenavService.panel.close()">
+    Close
+  </button>
+</ng-template>
+
+<ng-template #tempRef2>
+  <p>Hello, second template!</p>
+  <button mat-button color="primary" (click)="sidenavService.panel.close()">
+    Close
+  </button>
+</ng-template>
